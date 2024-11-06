@@ -15,7 +15,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.posts');
+        $posts = Posts::all();
+        return view('posts.posts', compact('posts'));
     }
 
     /**
@@ -41,8 +42,8 @@ class PostsController extends Controller
             'body'=>$request->body
         ]);
         session()->flash('Add', 'Added Success');
-        // return redirect('posts');
-        return redirect()->back();
+        return redirect('posts');
+        // return redirect()->back();
     }
 
     /**

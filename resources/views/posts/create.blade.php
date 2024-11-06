@@ -15,6 +15,7 @@
 
         <h1 class="text-center">Create A New Post</h1>
 
+        <!-- start validation -->
         @if(session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Add') }}</strong>
@@ -35,6 +36,7 @@
         </div>
         @endif
 
+        <!-- end validation -->
 
         <form action="{{route('posts.store')}}" method="post">
             @csrf
