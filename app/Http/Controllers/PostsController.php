@@ -63,9 +63,10 @@ class PostsController extends Controller
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function edit(Posts $posts)
+    public function edit($id)
     {
-        //
+        $post = Posts::findOrFail($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -75,9 +76,14 @@ class PostsController extends Controller
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Posts $posts)
+    public function update(Request $request, $id)
     {
-        //
+        $post = Posts::findOrFail($id);
+        $post = $post->update([
+            'title'=>$request->title,
+            'body'=>$request->body
+        ]);
+        return redirect('posts');
     }
 
     /**

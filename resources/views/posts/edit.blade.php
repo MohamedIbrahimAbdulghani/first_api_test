@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Create Posts</title>
+    <title>Edit Posts</title>
 </head>
 
 <body>
 
     <div class="container">
 
-        <h1 class="text-center">Create A New Post</h1>
+        <h1 class="text-center">Edit Post : {{ $post->title }}</h1>
 
         <!-- start validation -->
         @if(session()->has('Add'))
@@ -36,17 +36,18 @@
 
         <!-- end validation -->
 
-        <form action="{{route('posts.store')}}" method="post">
+        <form action="{{route('posts.update', $post->id)}}" method="post">
             @csrf
+            @method('PATCH')
             <div class="mb-3">
                 <label class="form-label">Enter Title</label>
-                <input type="text" class="form-control" name="title">
+                <input type="text" class="form-control" name="title" value="{{$post->title}}">
             </div>
             <div class="mb-3">
                 <label class="form-label">Enter Body</label>
-                <input type="text" class="form-control" name="body">
+                <input type="text" class="form-control" name="body" value="{{$post->body}}">
             </div>
-            <button type="submit" class="btn btn-primary m-auto d-table">Create</button>
+            <button type="submit" class="btn btn-primary m-auto d-table">Update</button>
         </form>
     </div>
 

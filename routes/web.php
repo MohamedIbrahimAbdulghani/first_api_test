@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', PostsController::class);
+Route::get('posts/edit/{id}', [PostsController::class, "edit"]);
