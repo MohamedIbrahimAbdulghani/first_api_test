@@ -13,15 +13,9 @@
 
     <div class="container">
 
-        <h1 class="text-center">Edit Post : {{ $post->title }}</h1>
+        <h1 class="text-center">Edit Post : <span style="color: red">{{ $post->title }}</span></h1>
 
         <!-- start validation -->
-        @if(session()->has('Add'))
-        <div id="successContainer" class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ session()->get('Add') }}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
 
         @if($errors->any())
         <div id="errorContainer" class="alert alert-danger alert-dismissible fade show">

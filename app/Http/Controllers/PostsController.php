@@ -76,13 +76,15 @@ class PostsController extends Controller
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ValidationAboutCreatePost $request, $id)
     {
         $post = Posts::findOrFail($id);
-        $post = $post->update([
+        $post->update([
             'title'=>$request->title,
             'body'=>$request->body
         ]);
+        session()->flash('Update', 'Updated Successful');
+        // return redirect()->back();
         return redirect('posts');
     }
 
@@ -92,8 +94,10 @@ class PostsController extends Controller
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Posts $posts)
+    public function destroy($id)
     {
-        //
+        Posts::findOrFail($id)->delete();
+        session()->flash('Delete', 'Delete Successful');
+        return redirect()->back();
     }
 }

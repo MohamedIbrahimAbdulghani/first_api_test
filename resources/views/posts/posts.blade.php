@@ -13,6 +13,29 @@
 
     <div class="container">
         <h1 class="text-center">All Posts</h1>
+        <!-- start validation -->
+        @if(session()->has('Add'))
+        <div id="successContainer" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session()->has('Update'))
+        <div id="updateAlert" class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Update') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session()->has('Delete'))
+        <div id="deleteAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Delete') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        <!-- end validation -->
         <a href="{{route('posts.create')}}"><button class="btn btn-success">Add Post</button></a>
         <table class="table border  mt-3">
             <thead>
@@ -33,8 +56,13 @@
                     <td>{{$post->body}}</td>
                     <td>{{$post->created_at}}</td>
                     <td>
-                        <a href="{{route('posts.edit', $post->id)}}"><button class="btn btn-secondary">Edit</button></a>
-                        <a href=""><button class="btn btn-danger">Delete</button></a>
+                        <a href="{{route('posts.edit', $post->id)}}"><button
+                                class="btn btn-secondary mb-2">Edit</button></a>
+                        <form action="{{route('posts.destroy', $post->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger ">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
