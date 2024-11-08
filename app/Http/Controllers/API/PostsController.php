@@ -8,13 +8,17 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    use ApiResponseTrait;
     public function index() {
         $posts = Posts::all();
-        $returned_data = [
-            'data'=>$posts,
-            'message'=>'Returned Data Successful !',
-            'status'=>200
-        ];
-        return response($returned_data);
+        return $this->apiResponse($posts, 'Data Returned Successful!', 200);
+    }
+    public function show($id) {
+        $post = Posts::findOrFail($id);
+        if($post):
+            return $this->ApiResponse($post);
+        else:
+            return $this->ApiResponse(null, 'Post Is Not Found', 404);
+        endif;
     }
 }
