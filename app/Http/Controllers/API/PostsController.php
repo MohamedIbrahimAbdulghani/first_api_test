@@ -20,7 +20,7 @@ class PostsController extends Controller
     }
     // this is function to show post from id
     public function show($id) {
-        $post = Posts::findOrFail($id);
+        $post = Posts::find($id);
         if($post):
             return $this->ApiResponse(new PostsResource($post), 'Data Returned Successful !', 200);
         else:
@@ -29,6 +29,7 @@ class PostsController extends Controller
     }
     // this is function to store post in database
     public function store(Request $request) {
+        // this is to make validation
         $validator = Validator::make($request->all(), [
             'title'=>'required|min:3',
             'body'=>'required'
@@ -46,6 +47,7 @@ class PostsController extends Controller
     }
     // this is function to update post in database
     public function update(Request $request, $id) {
+        // this is to make validation
         $validator = Validator::make($request->all(), [
             'title'=>'required|min:3',
             'body'=>'required'
@@ -53,12 +55,16 @@ class PostsController extends Controller
         if($validator->fails()):
             return $this->ApiResponse(null, $validator->errors(), 400);
         endif;
-        $post = Posts::findOrFail($id);
+
+        $post = Posts::find($id);
+
+        if(!$post):
+            return $this->ApiResponse(null, 'Post Not Found!', 404);
+        endif;
+
         $post->update($request->all());
         if($post):
             return $this->ApiResponse(new PostsResource($post), 'The Post Updated', 200);
-        else:
-            return $this->ApiResponse($post, 'The Post Not Update', 404);
         endif;
     }
 }
