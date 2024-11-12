@@ -18,15 +18,6 @@ class PostsController extends Controller
         $posts = PostsResource::collection(Posts::all());
         return $this->ApiResponse($posts, 'Data Returned Successful!', 200);
     }
-    // this is function to show post from id
-    public function show($id) {
-        $post = Posts::find($id);
-        if($post):
-            return $this->ApiResponse(new PostsResource($post), 'Data Returned Successful !', 200);
-        else:
-            return $this->ApiResponse(null, 'Post Is Not Found', 404);
-        endif;
-    }
     // this is function to store post in database
     public function store(Request $request) {
         // this is to make validation
@@ -43,6 +34,15 @@ class PostsController extends Controller
             return $this->ApiResponse(new PostsResource($post), 'The Post Save', 200);
         else:
             return $this->ApiResponse(null, 'The Post Not Save', 404);
+        endif;
+    }
+    // this is function to show post from id
+    public function show($id) {
+        $post = Posts::find($id);
+        if($post):
+            return $this->ApiResponse(new PostsResource($post), 'Data Returned Successful !', 200);
+        else:
+            return $this->ApiResponse(null, 'Post Is Not Found', 404);
         endif;
     }
     // this is function to update post in database
@@ -65,6 +65,16 @@ class PostsController extends Controller
         $post->update($request->all());
         if($post):
             return $this->ApiResponse(new PostsResource($post), 'The Post Updated', 200);
+        endif;
+    }
+    //  this is function to delete post in database
+    public function delete($id) {
+        $post = Posts::find($id);
+        if(!$post):
+            return $this->ApiResponse(null, 'Post Not Found!', 404);
+        else:
+            $post->delete();
+            return $this->ApiResponse(null, 'Deleted Successful', 201);
         endif;
     }
 }
