@@ -15,21 +15,21 @@
         <h1 class="text-center">All Posts</h1>
         <!-- start validation -->
         @if(session()->has('Add'))
-        <div id="successContainer" class="alert alert-success alert-dismissible fade show" role="alert">
+        <div id="successContainer" class="alert alert-success text-center alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Add') }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
 
         @if(session()->has('Update'))
-        <div id="updateAlert" class="alert alert-primary alert-dismissible fade show" role="alert">
+        <div id="updateAlert" class="alert alert-primary text-center  alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Update') }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
 
         @if(session()->has('Delete'))
-        <div id="deleteAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div id="deleteAlert" class="alert alert-danger text-center  alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Delete') }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
